@@ -15,6 +15,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //username i stedet for first og last name?
+
     @Column(nullable = false)
     private String firstName;
 

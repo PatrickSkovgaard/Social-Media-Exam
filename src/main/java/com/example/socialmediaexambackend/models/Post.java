@@ -22,13 +22,15 @@ public class Post {
     @Column
     private String postDescription;
 
+    //created date attribute needed
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Hashtag> hashtags;
 
     @ManyToOne
     @JsonIgnoreProperties
-    @JsonBackReference
+    @JsonBackReference //author i stedet for user_id?
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
