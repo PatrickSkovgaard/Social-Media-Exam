@@ -15,13 +15,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //username i stedet for first og last name?
-
-    @Column(nullable = false)
-    private String firstName;
-
     @Column
-    private String lastName;
+    private String userName;
 
     @Column(length = 3)
     private byte age;
@@ -32,12 +27,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
+    @JsonIgnoreProperties
     private List<Post> posts;
 
 
-    public User(String firstName, String lastName, byte age, String shortDescription, List<Post> posts){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String userName, byte age, String shortDescription, List<Post> posts){
+        this.userName = userName;
         this.age = age;
         this.shortDescription = shortDescription;
         this.posts = posts;
@@ -56,20 +51,12 @@ public class User {
         this.id = userId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUserName(String firstName) {
+        this.userName = firstName;
     }
 
     public byte getAge() {
@@ -100,8 +87,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", firstName='" + userName + '\'' +
                 ", age=" + age +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", posts=" + posts +

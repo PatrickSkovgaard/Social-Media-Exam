@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -16,16 +17,19 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String postTitle;
 
     @Column
-    private String postDescription;
+    private String postContent;
 
-    //created date attribute needed
+
+    @Column
+    private LocalDate dateCreated;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @JsonManagedReference
+    @JsonIgnoreProperties
     private List<Hashtag> hashtags;
 
     @ManyToOne
@@ -35,11 +39,10 @@ public class Post {
     private User user;
 
 
-    public Post(String postTitle, String postDescription, List<Hashtag> hashtags, User user){
+    public Post(String postTitle, String postContent, LocalDate dateCreated){
         this.postTitle = postTitle;
-        this.postDescription = postDescription;
-        this.hashtags = hashtags;
-        this.user = user;
+        this.postContent = postContent;
+        this.dateCreated = dateCreated;
     }
 
     public Post(){
@@ -63,12 +66,20 @@ public class Post {
         this.postTitle = title;
     }
 
-    public String getPostDescription() {
-        return postDescription;
+    public String getPostContent() {
+        return postContent;
     }
 
-    public void setPostDescription(String description) {
-        this.postDescription = description;
+    public void setPostContent(String description) {
+        this.postContent = description;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public List<Hashtag> getHashtags() {
@@ -92,7 +103,8 @@ public class Post {
         return "Post{" +
                 "postId=" + id +
                 ", title='" + postTitle + '\'' +
-                ", description='" + postDescription + '\'' +
+                ", content='" + postContent + '\'' +
+                ", date created='" + dateCreated + '\'' +
                 ", hashtags=" + hashtags +
                 ", user=" + user +
                 '}';

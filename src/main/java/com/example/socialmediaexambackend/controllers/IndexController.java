@@ -102,7 +102,7 @@ public class IndexController {
 
     @PostMapping(value = "/create_post", consumes = "application/json")
     public ResponseEntity<Post> createPost(@RequestBody Post post){
-
+        System.out.println(post);
         postRepository.save(post);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
